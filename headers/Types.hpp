@@ -1,4 +1,4 @@
 #pragma once
 
-#define u_short unsigned short
-#define u_char unsigned char
+typedef unsigned short u_short;
+typedef unsigned char u_char;
