@@ -1,23 +1,22 @@
 #pragma once
 
-#include "Types.hpp"
+#include "settings.hpp"
 
-class Cell{
+#define BOMB '@'
+#define FLAG '$'
+#define EMPTY ' '
+#define UNCOVERED '#'
+
+class cell{
 
     public:
-        Cell();
-        Cell(const u_char);
-        Cell(const Cell &);
+        cell();
+        cell(u_char const);
 
-        Cell &operator =(const Cell &);
-        Cell &operator ++();
-        Cell operator ++(int);
-
-        u_char getValue() const;
+        u_char get_value() const;
+        void set_value(u_char const);
 
     private:
         u_char _value;
-
-        void copy(const Cell &);
 
 };

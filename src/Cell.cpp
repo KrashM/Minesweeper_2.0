@@ -1,28 +1,7 @@
-#include "../headers/Cell.hpp"
+#include "../headers/cell.hpp"
 
-Cell::Cell(): _value('0'){}
-Cell::Cell(const u_char value): _value(value){}
-Cell::Cell(const Cell &other){ this -> copy(other); }
-Cell &Cell::operator =(const Cell &other){
-    
-    if(this != &other) this -> copy(other);
-    return *this;
-    
-}
-Cell &Cell::operator ++(){
+cell::cell(): _value(UNCOVERED){}
+cell::cell(const u_char value): _value(value){}
 
-    this -> _value++;
-    return *this;
-
-}
-
-Cell Cell::operator ++(int){
-
-    Cell old = *this;
-    ++*this;
-    return old;
-
-}
-
-u_char Cell::getValue() const{ return this -> _value; }
-void Cell::copy(const Cell &other){ this -> _value = other._value; }
+u_char cell::get_value() const{ return this -> _value; }
+void cell::set_value(u_char const value){ this -> _value = value; }
