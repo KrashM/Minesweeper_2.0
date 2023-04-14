@@ -1,35 +1,46 @@
 #pragma once
 
-#include "Cell.hpp"
-#include "Settings.hpp"
+#include "settings.hpp"
 #include <ostream>
+
+#define BOMB '@'
+#define FLAG '$'
+#define EMPTY '0'
+#define UNCOVERED '#'
 
 using std::ostream;
 
-class Board{
+class board{
 
     public:
-        Board();
-        Board(const Settings &);
-        Board(const Board &);
-        ~Board();
+        struct coords{
+            uint16_t x, y;
+        };
 
-        Board &operator =(const Board &);
-        friend ostream &operator <<(ostream &, const Board &);
+        ~board();
 
-        void populateBombs();
-        void calculateCells();
-        void checkNeighbourCells(const u_short, const u_short);
-        bool cellIsInside(const u_short, const u_short) const;
-        unsigned char getCell(const u_short, const u_short) const;
-        unsigned char reviewCell(const u_short, const u_short) const;
+        board(board const &) = delete;
+        board(board &&) = delete;
+
+        board &operator =(board const &) = delete;
+        board &operator =(board &&) = delete;
+
+        static board &get_instance();
+
+        void review_cell(coords const);
+        u_char get_cell(coords const) const;
+
+        friend ostream &operator <<(ostream &, board const &);
 
     private:
-        Cell **_cells;
-        bool **_reviewed;
-        u_short _width, _height, _nMines;
+        board();
 
-        void del();
-        void copy(const Board &);
+        void populate_bombs();
+
+        bool cell_is_inside(coords const) const;
+        bool is_bomb(coords const) const;
+
+        u_char **_cells;
+        uint16_t _bombs[30];
 
 };
