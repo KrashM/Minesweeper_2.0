@@ -1,8 +1,8 @@
 #pragma once
 
 #include <cstdint>
+#include "debug.hpp"
 #include "out_of_bounds.hpp"
-#include "../utils/debug_new.h"
 
 typedef unsigned char u_char;
 
@@ -40,15 +40,13 @@ class settings{
 
 };
 
-#ifdef DEBUG_NEW
-#define new new(1)
-#endif
-
 #ifdef DEBUG
-#ifndef DOCTEST_LIBRARY_INCLUDED
-#define DOCTEST_CONFIG_IMPLEMENT
-#include "../utils/doctest.h"
-#endif
+
+TEST_CASE("Testing singleton property"){
+
+    CHECK_EQ(&settings::get_instance(), &settings::get_instance());
+
+}
 
 TEST_SUITE("Testing different difficulties"){
 
