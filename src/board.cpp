@@ -1,7 +1,7 @@
-#include "../headers/board.hpp"
-#include "../headers/out_of_bounds.hpp"
 #include <random>
 #include <iomanip>
+#include "../headers/board.hpp"
+#include "../headers/out_of_bounds.hpp"
 
 using std::setw;
 
@@ -42,13 +42,6 @@ void board::review_cell(coords const c){
 
 }
 
-u_char board::get_cell(coords const c) const{
-    
-    if(!cell_is_inside(c)) throw out_of_bounds();
-    return _cells[c.x][c.y];
-    
-}
-
 ostream &operator <<(ostream &os, board const &obj){
 
     os << "  ";
@@ -74,6 +67,7 @@ board::board(): _cells(new u_char *[settings::get_instance().get_height()]){
     for(uint16_t i = 0; i < settings::get_instance().get_height(); ++i){
         
         _cells[i] = new u_char[settings::get_instance().get_width()];
+
         for(uint16_t j = 0; j < settings::get_instance().get_width(); ++j)
             _cells[i][j] = UNCOVERED;
 
