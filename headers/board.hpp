@@ -1,7 +1,7 @@
 #pragma once
 
-#include "settings.hpp"
 #include <ostream>
+#include "settings.hpp"
 
 #define BOMB '@'
 #define FLAG '$'
@@ -28,7 +28,6 @@ class board{
         static board &get_instance();
 
         void review_cell(coords const);
-        u_char get_cell(coords const) const;
 
         friend ostream &operator <<(ostream &, board const &);
 
@@ -44,3 +43,13 @@ class board{
         uint16_t _bombs[30];
 
 };
+
+#ifdef DEBUG
+
+TEST_CASE("Testing singleton property"){
+
+    CHECK_EQ(&board::get_instance(), &board::get_instance());
+
+}
+
+#endif
