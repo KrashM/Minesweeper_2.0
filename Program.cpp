@@ -1,21 +1,8 @@
-// #define DEBUG
-#define DEBUG_NEW
+#include "headers/debug.hpp"
 #include "headers/settings.hpp"
 #include "headers/board.hpp"
 
 #include <iostream>
-
-#ifdef DEBUG
-#define test doctest::Context().run()
-#else
-#define test
-#endif
-
-#ifdef DEBUG_NEW
-#define leaks checkMemoryLeaks()
-#else
-#define leaks
-#endif
 
 using std::cout;
 
@@ -27,11 +14,14 @@ int main(){
     settings_instance.set_difficulty(difficulty::EASY);
 
     board &board_instance = board::get_instance();
+
     for(uint16_t i = 0; i < settings_instance.get_height(); ++i)
         for(uint16_t j = 0; j < settings_instance.get_width(); ++j)
             board_instance.review_cell({i, j});
 
     cout << board_instance << '\n';
+
+    kill_singletons;
 
     leaks;
 
