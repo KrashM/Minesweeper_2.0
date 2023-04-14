@@ -26,7 +26,6 @@ class settings{
         settings &operator =(settings &&) = delete;
 
         static settings &get_instance();
-        static void destroy_instance();
 
         void set_difficulty(difficulty const);
 
