@@ -4,8 +4,6 @@
 
 #include <iostream>
 
-using std::cout;
-
 int main(){
 
     test;
@@ -19,9 +17,7 @@ int main(){
         for(uint16_t j = 0; j < settings_instance.get_width(); ++j)
             board_instance.review_cell({i, j});
 
-    cout << board_instance << '\n';
-
-    kill_singletons;
+    std::cout << board_instance << '\n';
 
     leaks;
 

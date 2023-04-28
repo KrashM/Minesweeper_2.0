@@ -3,8 +3,6 @@
 #include "../headers/board.hpp"
 #include "../headers/out_of_bounds.hpp"
 
-using std::setw;
-
 board &board::get_instance(){
 
     static board instance;
@@ -42,18 +40,18 @@ void board::review_cell(coords const c){
 
 }
 
-ostream &operator <<(ostream &os, board const &obj){
+std::ostream &operator <<(std::ostream &os, board const &obj){
 
     os << "  ";
     for(uint16_t i = 0; i < settings::get_instance().get_width(); i++)
-        os << ' ' << setw(2) << i + 1;
+        os << ' ' << std::setw(2) << i + 1;
     os << '\n';
 
     for(uint16_t i = 0; i < settings::get_instance().get_height(); i++){
 
-        os << setw(2) << i + 1;
+        os << std::setw(2) << i + 1;
         for(uint16_t j = 0; j < settings::get_instance().get_width(); j++)
-            os << setw(2) << ' ' << obj._cells[i][j];
+            os << std::setw(2) << ' ' << obj._cells[i][j];
         os << '\n';
 
     }

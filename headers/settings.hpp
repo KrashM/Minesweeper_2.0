@@ -1,8 +1,8 @@
 #pragma once
 
-#include <cstdint>
 #include "debug.hpp"
 #include "out_of_bounds.hpp"
+#include <cstdint>
 
 typedef unsigned char u_char;
 
@@ -17,8 +17,6 @@ enum class difficulty{
 class settings{
 
     public:
-        ~settings() = default;
-
         settings(settings const &) = delete;
         settings(settings &&) = delete;
 
