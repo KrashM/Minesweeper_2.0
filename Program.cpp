@@ -1,24 +1,22 @@
-#include "headers/debug.hpp"
-#include "headers/settings.hpp"
-#include "headers/board.hpp"
-
-#include <iostream>
+#include <SFML/Graphics.hpp>
 
 int main(){
 
-    test;
+    sf::RenderWindow window(sf::VideoMode(400, 400), "SFML works!");
+    sf::RectangleShape shape({200, 300});
+    shape.setFillColor(sf::Color::Green);
 
-    settings &settings_instance = settings::get_instance();
-    settings_instance.set_difficulty(difficulty::EASY);
+    while(window.isOpen()){
 
-    board &board_instance = board::get_instance();
+        sf::Event event;
+        while(window.pollEvent(event))
+            if(event.type == sf::Event::Closed)
+                window.close();
 
-    for(uint16_t i = 0; i < settings_instance.get_height(); ++i)
-        for(uint16_t j = 0; j < settings_instance.get_width(); ++j)
-            board_instance.review_cell({i, j});
+        window.clear();
+        window.draw(shape);
+        window.display();
 
-    std::cout << board_instance << '\n';
-
-    leaks;
+    }
 
 }
