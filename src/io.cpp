@@ -1,25 +1,24 @@
-#include "../headers/IO.hpp"
-#include "../headers/Types.hpp"
+#include "../headers/io.hpp"
 
-using std::cout;
-using std::ios;
-using std::setw;
+io &io::get_instance(){
 
-void IO::centeringString(const char *s){
-
-	HANDLE hOut;
-	hOut = GetStdHandle(STD_OUTPUT_HANDLE);
-    CONSOLE_SCREEN_BUFFER_INFO csbi;
-    GetConsoleScreenBufferInfo(hOut, &csbi);
-    const size_t width = csbi.srWindow.Right - csbi.srWindow.Left;
-    for(size_t i = 0; i < (width - strlen(s)) / 2; i++) cout << ' ';
-    cout << s << '\n';
+    static io instance;
+    return instance;
 
 }
 
-void IO::setConsole(){
+void io::menu(){
 
-    const u_short width = 400, height = 400;
+    set_console();
+    centering_string("Hello, player!");
+    centering_string("Start Game");
+    centering_string("Quit!");
+
+}
+
+void io::set_console(){
+
+    uint16_t const width = 400, height = 400;
     HWND console = GetConsoleWindow();
     RECT r;
     GetWindowRect(console, &r);
@@ -27,11 +26,14 @@ void IO::setConsole(){
 
 }
 
-void IO::menu(){
+void io::centering_string(std::string const &str){
 
-    IO::setConsole();
-    IO::centeringString("Hello, player!");
-    IO::centeringString("Start Game");
-    IO::centeringString("Quit!");
+	HANDLE hOut;
+	hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+    CONSOLE_SCREEN_BUFFER_INFO csbi;
+    GetConsoleScreenBufferInfo(hOut, &csbi);
+    const size_t width = csbi.srWindow.Right - csbi.srWindow.Left;
+    for(size_t i = 0; i < (width - str.length()) / 2; i++) std::cout << ' ';
+    std::cout << str << '\n';
 
 }
