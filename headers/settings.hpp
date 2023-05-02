@@ -16,25 +16,30 @@ enum class difficulty{
 
 class settings{
 
-    public:
-        settings(settings const &) = delete;
-        settings(settings &&) = delete;
+public:
+    settings(settings const &) = delete;
+    settings(settings &&) = delete;
 
-        settings &operator =(settings const &) = delete;
-        settings &operator =(settings &&) = delete;
+    settings &operator =(settings const &) = delete;
+    settings &operator =(settings &&) = delete;
 
-        static settings &get_instance();
+    static settings &get_instance();
 
-        void set_difficulty(difficulty const);
+    void set_difficulty(difficulty const);
 
-        uint16_t const get_height() const;
-        uint16_t const get_width() const;
-        uint16_t const get_bombs() const;
-    
-    private:
-        settings() = default;
+    uint16_t const get_height() const;
+    uint16_t const get_width() const;
+    uint16_t const get_bombs() const;
 
-        uint16_t _height, _width, _bombs;
+public:
+    static constexpr uint16_t _cell_size = 16;
+    static constexpr uint16_t _frame_duration = 16667;
+
+private:
+    settings() = default;
+
+private:
+    uint16_t _height, _width, _bombs;
 
 };
 
@@ -80,6 +85,12 @@ TEST_SUITE("Testing different difficulties"){
         CHECK_EQ(instance.get_bombs(), 99);
 
     }
+
+}
+
+TEST_CASE("Testing cell size getter"){
+
+    CHECK_EQ(settings::get_instance().get_cell_size(), 16);
 
 }
 
