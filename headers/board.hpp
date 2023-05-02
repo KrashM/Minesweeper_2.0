@@ -2,6 +2,7 @@
 
 #include "settings.hpp"
 #include <ostream>
+#include <vector>
 
 #define BOMB '@'
 #define FLAG '$'
@@ -14,7 +15,7 @@ public:
     struct coords{ uint16_t x = 0, y = 0; };
 
 public:
-    ~board();
+    ~board() = default;
 
     board(board const &) = delete;
     board(board &&) = delete;
@@ -24,6 +25,7 @@ public:
 
     static board &get_instance();
 
+    char get_cell(coords const) const;
     void review_cell(coords const);
 
     friend std::ostream &operator <<(std::ostream &, board const &);
@@ -37,7 +39,7 @@ private:
     bool is_bomb(coords const) const;
 
 private:
-    u_char **_cells = nullptr;
+    std::vector<std::vector<u_char>> _cells;
     uint16_t _bombs[30] = { 0, };
 
 };
