@@ -17,6 +17,8 @@ public:
     io &operator =(io &&) = delete;
 
     void frame_update();
+    void game_loop();
+    void menu();
 
 private:
     io();
