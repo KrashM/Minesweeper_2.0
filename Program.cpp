@@ -1,3 +1,3 @@
 #include "headers/io.hpp"
 
-int main(){ io::get_instance(); }
+int main(){ io::get_instance().menu(); }
