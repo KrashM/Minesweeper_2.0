@@ -32,6 +32,7 @@ public:
     uint16_t const get_bombs() const;
 
 public:
+    static constexpr uint16_t _scale = 2;
     static constexpr uint16_t _cell_size = 16;
     static constexpr uint16_t _frame_duration = 16667;
 
