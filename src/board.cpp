@@ -9,16 +9,22 @@ board &board::get_instance(){
     return instance;
 
 }
-#include <iostream>
 
 char board::get_cell(coords const c) const{
     if(!cell_is_inside(c)) throw out_of_bounds();
     return _cells[c.x][c.y];
 }
 
+void board::flag_cell(coords const c){
+    if(!cell_is_inside(c)) throw out_of_bounds();
+    _cells[c.x][c.y] = _cells[c.x][c.y] == UNCOVERED ? FLAG : UNCOVERED;
+}
+
 void board::review_cell(coords const c){
 
     if(!cell_is_inside(c)) throw out_of_bounds();
+
+    if(_cells[c.x][c.y] != UNCOVERED) return;
 
     if(is_bomb(c)){
 
@@ -45,6 +51,18 @@ void board::review_cell(coords const c){
     for(uint16_t i = 0; i < 8; ++i)
         if(cell_is_inside(neighbours[i]))
             _cells[c.x][c.y] += is_bomb(neighbours[i]);
+    
+    if(_cells[c.x][c.y] == EMPTY)
+        for(uint16_t i = 0; i < 8; ++i)
+            if(cell_is_inside(neighbours[i]))
+                review_cell(neighbours[i]);
+
+}
+
+void board::reset(){
+
+    _cells.resize(settings::get_instance().get_width(), std::vector<u_char>(settings::get_instance().get_height(), UNCOVERED));
+    populate_bombs();
 
 }
 
@@ -59,7 +77,7 @@ std::ostream &operator <<(std::ostream &os, board const &obj){
 
         os << std::setw(2) << i + 1;
         for(uint16_t j = 0; j < settings::get_instance().get_width(); j++)
-            os << std::setw(2) << ' ' << obj._cells[i][j];
+            os << std::setw(2) << ' ' << obj._cells[j][i];
         os << '\n';
 
     }
@@ -68,8 +86,8 @@ std::ostream &operator <<(std::ostream &os, board const &obj){
 
 }
 
-board::board(): _cells(settings::get_instance().get_width(), std::vector<u_char>(settings::get_instance().get_height(), UNCOVERED)){
-    populate_bombs();
+board::board(){
+    reset();
 }
 
 void board::populate_bombs(){

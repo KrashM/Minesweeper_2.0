@@ -26,8 +26,12 @@ public:
     static board &get_instance();
 
     char get_cell(coords const) const;
+    void flag_cell(coords const);
     void review_cell(coords const);
 
+    void reset();
+
+public:
     friend std::ostream &operator <<(std::ostream &, board const &);
 
 private:
